@@ -1,0 +1,27 @@
+# Grammar file for testing.
+
+configuration {
+	min_vertices = 10;
+}
+
+productions {
+   Start1 -> Enemy2,
+   Enemy2 -> Key3,
+   Enemy2 -> Enemy4,
+   Enemy2 -> Puzzle5,
+   Puzzle5 -> Enemy6,
+   Enemy6 -> Boss7,
+   Boss7 -> End8;
+
+    # Productions
+    Start1 -> End2 ==> Seed1;
+    Start1 -> Stuff3 -> End2   ==> Start1 -> End2;
+    Stuff1 -> Stuff2 ==> Stuff1 !;
+    Stuff1 -> Stuff2 ==> Stuff2 !;
+    Enemy1 ==> Stuff1;
+    Key1 ==> Stuff1;
+    Puzzle1 ==> Stuff1;
+    Boss1 ==> Stuff1;
+    
+    
+}

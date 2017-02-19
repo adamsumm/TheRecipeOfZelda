@@ -1,0 +1,17 @@
+# Grammar file for testing.
+
+configuration {
+	min_vertices = 10;
+}
+
+productions {
+    A1->B2,
+    B2->C3; # Start graph. The numbers here do not have to match the numbers
+            # in the production below. But they are necessary to ensure that
+            # two 'A' vertices are created.
+
+	# Productions
+    #A1->A2 ==> A1->D->A2,A1-b>A2;
+    A1->B2 ==> A1 ; #This will leave A and C disconnected
+    A1->B2 ==> A1 !; #This will reconnect A and C
+}

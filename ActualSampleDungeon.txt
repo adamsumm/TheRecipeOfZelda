@@ -1,0 +1,24 @@
+
+configuration {
+	min_vertices = 10;
+}
+
+productions {
+
+ Start0->Stuff1,
+ Enemy5->End6,
+ Stuff1->Enemy5;
+ 
+    # Productions
+    Start1 -> End2 ==> Seed1;
+    Start1 -> Chain2 -> Gate3 -> MiniBoss4 -> QuestItem5 -> ItemTest6 -> ChainFinal7 -> End8,
+    Gate3 -> MiniBoss4 -> QuestItem5 -> ItemTest6 -> ChainFinal7 ==> Start1 -> End8;
+    Stuff1 -> Stuff2 ==> Stuff1 !;
+    Stuff1 -> Stuff2 ==> Stuff2 !;
+    Enemy1 ==> Stuff1;
+    Key1 ==> Stuff1;
+    Puzzle1 ==> Stuff1;
+    Boss1 ==> Stuff1;
+    
+    
+}

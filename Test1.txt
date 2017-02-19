@@ -1,0 +1,20 @@
+# Grammar file for testing.
+
+configuration {
+	min_vertices = 10;
+}
+
+productions {
+
+ Start0->Middle1,
+ Start0->Middle1,
+ Start0->Middle2,
+ Middle1->End3;
+ 
+    # Productions
+    Start1 -> Middle2,
+    Start1 -> Middle2 ==> Seed1;
+    
+    #Start1 -> Middle2 ==> Seed1;
+    
+}

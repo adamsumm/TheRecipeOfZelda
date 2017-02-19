@@ -1,0 +1,60 @@
+# Grammar file for testing.
+
+configuration {
+	min_vertices = 10;
+}
+
+
+productions {
+    Seed;
+
+    Seed1 ==> Start1 -> Chain2 -> Gate3 -> MiniBoss4 -> QuestItem5 -> ItemTest6 -> ChainFinal7 -> End8,
+                               Gate3 -> MiniBoss4 -> QuestItem5 -> ItemTest6 -> ChainFinal7;
+    ChainFinal1 -> End2 ==> Chain1 -> Hook8,
+                            Chain1 -> Gate3 -> LockFinal4 -> LevelBoss5 -> End2,
+			              Gate3 -> LockFinal4 -> LevelBoss5 -> End2,
+			    Chain1 -> Test6 -> KeyFinal7 -> LockFinal4,
+			              Test6 -> KeyFinal7,
+				      Test6 -> Hook9;
+    Chain1 -> Gate2 ==> ChainLinear1 -> ChainLinear3 -> ChainLinear2,
+    	      	    	ChainLinear1 -> ChainLinear3 -> ChainLinear2;
+    Chain1 -> Gate2 ==> ChainLinear1 -> ChainLinear4 -> ChainLinear3 -> ChainLinear2,
+    	      	    	ChainLinear1 -> ChainLinear4 -> ChainLinear3 -> ChainLinear2;
+    Chain1 -> Gate2 ==> ChainLinear1 -> ChainLinear4 -> ChainLinear3 -> ChainLinear5 -> ChainLinear2,
+    	      	    	ChainLinear1 -> ChainLinear4 -> ChainLinear3 -> ChainLinear5 -> ChainLinear2;
+    Chain1 ==> Test1;
+    ChainLinear1 ==> Test1 -> Test2 -> Item3,
+    		     Test1 -> Test2 -> Item3;	
+    ChainLinear1 ==> TestSecret1;		
+    ChainLinear1 -> ChainLinear2,		
+    ChainLinear1 -> ChainLinear2 ==> Key1 -> Lock2,
+                                     Key1 -> Lock2;
+    ChainLinear1 -> ChainLinear2 ==> Key1 -> Lock3 -> ChainLinear2,
+                                     Key1 -> Lock3 -> ChainLienar2;
+    Chain1 -> Gate2 ==> ChainParallel1 -> Gate2;
+    ChainParallel1 -> Gate2 ==> Fork1 -> MultiPieceKey3 -> LockMulti2,
+				Fork1 -> MultiPieceKey4 -> LockMulti2,
+				Fork1 -> MultiPieceKey5 -> LockMulti2;
+    Fork1 -> MultiPieceKey2 ==> Fork1 -> Key3 -> Lock4 -> MultiPieceKey2,
+    	     		    	      	      	 Lock4 -> MultiPieceKey2,
+						 Lock4 -> Hook5,
+						 Lock4 -> Hook5;
+    Fork1 -> MultiPieceKey2 ==> Fork1 -> Test3 -> MultiPieceKey2,
+   	     		    	         Test3 -> MultiPieceKey2;
+    Fork1 -> MultiPieceKey2 ==> Fork1 -> TestSecret3 -> MultiPieceKey2,
+   	     		    	         TestSecret3 -> MultiPieceKey2;
+    Fork1 -> Key2 ==> Fork1 -> Test3 -> Key2,
+    	     	      	       Test3 -> Key2;
+    Fork1 -> Key2 ==> Fork1 -> TestSecret3 -> Key2,
+    	     	      	       TestSecret3 -> Key2;
+    Fork1 ==> Nothing1 -> Hook2,
+              Nothing1 -> Hook3;
+    Hook1 ==> Nothing1;
+    Hook1 ==> Test1 -> Item2,
+             Test1 -> Item2;
+    Hook1 ==> TestSecret1 -> Item2,
+             TestSecret1 -> Item2;  
+
+}
+			       
+
