@@ -1,13 +1,13 @@
 
 configuration {
 	min_vertices = 10;
+	max_vertices = 70;
 }
 
 
 productions {
     Seed;
-    Seed1 ==> s1 -> Middle2 -> Middle4 -> t3;
-    Middle1 -> t2 ==> Middle1 -BK-> b2 -l> t3;
+    Seed1 ==> s1 -> Middle2 -> Middle3  -BK> b4 -l> t5;
     WILDCARD1 -BK> WILDCARD2 ==> WILDCARD1 -K> WILDCARD2; #LttP
     WILDCARD1 -BK> WILDCARD2 ==> WILDCARD1 -k> WILDCARD2; #LoZ
     Middle1 -> Middle2 ==> Middle1 -k> Middle2,

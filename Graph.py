@@ -188,6 +188,8 @@ class Rule:
         return 'RULE:\n' + str(self.lhs) + '\n=>\n'+ str(self.rhs) + '\n'
     def find_matches(self,other,Vertex_equals=None,edge_equals=None):
         return other.find_matches(self.lhs,Vertex_equals,edge_equals)
+    def reverse(self):
+        return Rule(self.rhs,self.lhs,self.rhs_to_lhs)
     def apply_to(self,graph,match,Vertex_equals=None,edge_equals=None):
         #print(self)
         mapping = {self.lhs.vertices[i]:v for i,v in enumerate(match)}
