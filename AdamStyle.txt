@@ -1,0 +1,32 @@
+
+configuration {
+	min_vertices = 10;
+}
+
+
+productions {
+    Seed;
+    Seed1 ==> s1 -> Middle2 -> Middle4 -> t3;
+    Middle1 -> t2 ==> Middle1 -BK-> b2 -l> t3;
+    WILDCARD1 -BK> WILDCARD2 ==> WILDCARD1 -K> WILDCARD2; #LttP
+    WILDCARD1 -BK> WILDCARD2 ==> WILDCARD1 -k> WILDCARD2; #LoZ
+    Middle1 -> Middle2 ==> Middle1 -k> Middle2,
+    	       	       	   Middle1 -> HasKey3;
+    Middle1 -> Middle2 ==> Middle1 -> Middle2 -k> Middle3,
+    	       	       	   Middle1 -> Middle4 -> HasKey5 -> Middle2;
+    Middle1 -> Middle2 ==> Middle1 -> Middle2 -k> Middle3,
+    	       	       	   Middle1 -> Middle4 -> HasKey5 -> Middle2,
+			   Middle4 -b> Middle3;
+    Middle1 -> HasKey2 ==> Middle1 -> HasChallenge3 -> HasKey2;
+    Middle1 ==> empty1;
+    Middle1 ==> HasChallenge1;
+    Middle1 ==> i1;
+    HasChallenge1 ==> e1;
+    HasChallenge1 ==> p1;
+    HasChallenge1 ==> ep1;
+    HasChallenge1 ==> epi1;
+    HasChallenge1 ==> ei1;
+    HasChallenge1 ==> pi1;
+    HasKey1 ==> pk1;
+    HasKey1 ==> ek1;
+}
