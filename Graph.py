@@ -84,7 +84,7 @@ class Graph:
                         if e.label == e_o.label:
                             already_exists = True
                             break
-                    if not already_exists:
+                    if not already_exists and e_i.v1 != e_o.v2:
                         self.add_edge(e_i.v1,e_o.v2,e_o.label)
         to_remove = []
         for e in self.edges:
@@ -113,29 +113,33 @@ class Graph:
         for e in self.edges:
             st += 'edge: ' +str(e) + '\n'
         return st
-    def find_matches(self,other,Vertex_equals=None,edge_equals=None):
+    def find_matches(self,other,vertex_equals=None,edge_equals=None):
         import itertools
         if len(self.vertices) < len(other.vertices):
             #print 'len bad'
             return []
         matches = []
         
-        if not Vertex_equals:
-            Vertex_equals = lambda x,y: x.label == y.label
+        if not vertex_equals:
+            vertex_equals = lambda x,y: x.label == y.label
         if not edge_equals:
-            edge_equals = lambda x,y: (x.label == y.label and x.v1.label == y.v1.label  and x.v2.label == y.v2.label)
-            
-        for perm in itertools.permutations(self.vertices,len(other.vertices)):
-            is_good = True
-            
-            for ind,v in enumerate(perm):
-                #print ind,v
-                if not Vertex_equals(other.vertices[ind],v):
-                    #print 'Nope'
-                    is_good = False
-                    break
-            if not is_good:
+            edge_equals = lambda x,y: (x.label == y.label and vertex_equals(x.v1,y.v1) and vertex_equals(x.v2,y.v2))
+        possibles = [[v for v in self.vertices if vo.label == v.label] for vo in other.vertices]
+
+        for perm in itertools.product(*possibles):
+            if len(set(perm)) != len(perm):
                 continue
+        #for perm in itertools.permutations(self.vertices,len(other.vertices)):
+            #is_good = True
+            
+            #for ind,v in enumerate(perm):
+                #print ind,v
+            #    if not vertex_equals(other.vertices[ind],v):
+                    #print 'Nope'
+            #        is_good = False
+            #        break
+            #if not is_good:
+            #    continue
             is_good = len(other.edges) == 0
             mapping = {other.vertices[i]:v for i,v in enumerate(perm)}
             taken = set([])
@@ -186,19 +190,19 @@ class Rule:
         
     def __str__(self):
         return 'RULE:\n' + str(self.lhs) + '\n=>\n'+ str(self.rhs) + '\n'
-    def find_matches(self,other,Vertex_equals=None,edge_equals=None):
-        return other.find_matches(self.lhs,Vertex_equals,edge_equals)
+    def find_matches(self,other,vertex_equals=None,edge_equals=None):
+        return other.find_matches(self.lhs,vertex_equals,edge_equals)
     def reverse(self):
-        return Rule(self.rhs,self.lhs,self.rhs_to_lhs)
-    def apply_to(self,graph,match,Vertex_equals=None,edge_equals=None):
+        return Rule(self.rhs,self.lhs,self.rhs_to_lhs,prune=False)
+    def apply_to(self,graph,match,vertex_equals=None,edge_equals=None):
         #print(self)
         mapping = {self.lhs.vertices[i]:v for i,v in enumerate(match)}
-        for l,r in self.lhs_to_rhs.items():
-            print 'lhs', l, ' => ', r
+        #for l,r in self.lhs_to_rhs.items():
+        #    print 'lhs', l, ' => ', r
         rhs_to_new = {}
         for v in self.to_add:
             new_v = Vertex(label=v.label)
-            print 'adding',new_v
+            #print 'adding',new_v
             rhs_to_new[v] = new_v 
             graph.add_vertex(new_v)
         
@@ -214,13 +218,13 @@ class Rule:
             else:
                 v2 = rhs_to_new[v2]
             #new_e = Edge()
-            print 'adding ',v1, "-{}->".format(e.label),v2
+            #print 'adding ',v1, "-{}->".format(e.label),v2
             graph.add_edge(v1,v2,e.label)
                 
             
         
         for e in self.edges_to_delete:
-            print 'deleting',e
+            #print 'deleting',e
             v1 = mapping[e.v1]
             v2 = mapping[e.v2]
             
@@ -231,16 +235,20 @@ class Rule:
                     break
                 
         for v in self.to_delete:
-            print 'deleting',v
+            #print 'deleting',v
             graph.remove_vertex(mapping[v],self.prune)
             
         for v in self.lhs_to_rhs:
-            print 'lhs->rhs',v,self.lhs_to_rhs[v]
+            #print 'lhs->rhs',v,self.lhs_to_rhs[v]
+            
             if v in self.lhs.vertices:
-                graph.vertices[graph.vertices.index(mapping[v])].label = self.lhs_to_rhs[v].label
+                if  'WILDCARD' not in self.lhs_to_rhs[v].label:
+                    graph.vertices[graph.vertices.index(mapping[v])].label = self.lhs_to_rhs[v].label
             if v in self.lhs.edges:
                 for oe in graph.v2e[mapping[v.v1]][mapping[v.v2]]:
                     if oe.label == v.label:
-                        break                        
-                oe.label =  self.lhs_to_rhs[v].label 
+                        break
+                    
+                if  'WILDCARD' not in self.lhs_to_rhs[v].label:
+                    oe.label =  self.lhs_to_rhs[v].label 
         

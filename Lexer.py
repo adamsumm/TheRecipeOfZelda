@@ -43,6 +43,13 @@ class Lexer(object):
             elif self.c == '}':
                 self._consume()
                 return Token(TokenTypes.RBRACE, '}')
+            elif self.c == '<':
+                self._consume()
+                if self.c == '-':
+                    self._consume()
+                    return Token(TokenTypes.RARROW, '->')
+                else:
+                    return Token(TokenTypes.RARROW_START, '<')
             elif self.c == '-':
                 # '->'' is an ARROW, '-' followed by anything else is invalid.
                 self._consume()

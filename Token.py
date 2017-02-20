@@ -11,10 +11,10 @@ class TokenTypes(object):
     """A singleton to represent all token types."""
 
     (EOF, SEMICOLON, EQUALS, CONFIGURATION, PRODUCTIONS, LBRACE, RBRACE, \
-    	DOUBLEARROW, ARROW, ID, NUMBER, COMMA,ARROW_START,ARROW_END,EXCLAMATION) = range(15)
+    	DOUBLEARROW, ARROW, ID, NUMBER, COMMA,ARROW_START,ARROW_END,EXCLAMATION,RARROW,RARROW_START) = range(17)
 
     names = [ 'EOF', 'SEMICOLON', 'EQUALS', 'CONFIGURATION', 'PRODUCTIONS', 
-    	      'LBRACE', 'RBRACE', 'DOUBLEARROW', 'ARROW', 'ID', 'NUMBER', 'COMMA','ARROW_START','ARROW_END','EXCLAMATION' ]
+    	      'LBRACE', 'RBRACE', 'DOUBLEARROW', 'ARROW', 'ID', 'NUMBER', 'COMMA','ARROW_START','ARROW_END','EXCLAMATION','RARROW','RARROW_START' ]
         
 #------------------------------------------------------------------------------
 #    _____     _              

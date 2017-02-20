@@ -1,15 +1,37 @@
 
 configuration {
-	min_vertices = 10;
+	min_vertices = 13;
 	max_vertices = 70;
 }
 
 
 productions {
     Seed;
-    Seed1 ==> s1 -> Middle2 -> Middle3  -BK> b4 -l> t5;
-    WILDCARD1 -BK> WILDCARD2 ==> WILDCARD1 -K> WILDCARD2; #LttP
-    WILDCARD1 -BK> WILDCARD2 ==> WILDCARD1 -k> WILDCARD2; #LoZ
+    
+    
+    Seed1 ==> s1 -> Middle2 -> Middle3  -k> b4 -l> t5,
+                    Middle2 -> Middle6 -> HasKey7;
+    Seed1 ==> s1 -> Middle2 -> Middle3  -k> b4 -l> t5,
+    	                       Middle3 -> Middle6 -> HasKey7;
+    Seed1 ==> s1 -> Middle2 -> Middle3 -item_locked> Middle4 -k> b5 -l> t6,
+                    Middle2 -> Middle4 -> key_item7 -item_locked> Middle8 -> HasKey9,
+		    Middle8 -item_locked> Middle3;
+
+    Seed1 ==> s1 -> Middle2 -> Middle3  -bk> b4 -l> t5,
+                    Middle2 -> Middle6 -> bosskey7;
+    Seed1 ==> s1 -> Middle2 -> Middle3  -bk> b4 -l> t5,
+    	                       Middle3 -> Middle6 -> bosskey7;
+    Seed1 ==> s1 -> Middle2 -> Middle3 -item_locked> Middle4 -bk> b5 -l> t6,
+                    Middle2 -> Middle4 -> key_item7 -item_locked> Middle8 -> bosskey9,
+		    Middle8 -item_locked> Middle3;
+		    
+    Middle1 ==> Middle1 -> Branch2;
+    Branch1 ==> HasChallenge1 -> empty2;
+    Branch1 ==> HasChallenge1 -> HasItem2;
+    Branch1 ==> HasItem1 -> empty2;
+    Branch1 ==> HasItem1 -> HasChallenge2;
+    Branch1 ==> empty1 -> empty2;
+    Branch1 ==> empty1 -> HasChallenge2;
     Middle1 -> Middle2 ==> Middle1 -k> Middle2,
     	       	       	   Middle1 -> HasKey3;
     Middle1 -> Middle2 ==> Middle1 -> Middle2 -k> Middle3,
@@ -27,6 +49,8 @@ productions {
     HasChallenge1 ==> epi1;
     HasChallenge1 ==> ei1;
     HasChallenge1 ==> pi1;
+    HasItem1 ==> i1;
+    HasItem1 ==> pi1;
     HasKey1 ==> pk1;
     HasKey1 ==> ek1;
 }

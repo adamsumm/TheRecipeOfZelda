@@ -138,15 +138,27 @@ class Parser(object):
 
         currentVertexToken = self._match(TokenTypes.ID)
         currentVertex = self._parseVertexID(currentVertexToken, graph)
-
-        while self.lookahead.type in set([TokenTypes.ARROW,TokenTypes.ARROW_START]):
+        
+        while self.lookahead.type in set([TokenTypes.ARROW,TokenTypes.ARROW_START,TokenTypes.RARROW,TokenTypes.RARROW_START]):
             if self.lookahead.type == TokenTypes.ARROW:
+                forward = True
                 self._match(TokenTypes.ARROW)
                 edge_label = ''
-            else:
+            elif self.lookahead.type == TokenTypes.ARROW_START:
+                forward = True
                 self._match(TokenTypes.ARROW_START)
                 edge_label = self._match(TokenTypes.ID).text
                 self._match(TokenTypes.ARROW_END)
+            elif self.lookahead.type == TokenTypes.RARROW:
+                forward = False
+                self._match(TokenTypes.RARROW)
+                edge_label = ''
+            elif self.lookahead.type == TokenTypes.RARROW_START:
+                forward = False
+                self._match(TokenTypes.RARROW_START)
+                edge_label = self._match(TokenTypes.ID).text
+                self._match(TokenTypes.ARROW_START)
+
                 
             # Parse the next vertex in the input, creating a new vertex
             # if needed.
@@ -154,7 +166,10 @@ class Parser(object):
             nextVertex = self._parseVertexID(nextVertexToken, graph)
 
             # Connect the first vertex we read with the second one.
-            graph.add_edge(currentVertex, nextVertex,edge_label)
+            if forward:
+                graph.add_edge(currentVertex, nextVertex,edge_label)
+            else:
+                graph.add_edge(nextVertex,currentVertex,edge_label)
 
             currentVertex = nextVertex
 
@@ -189,6 +204,8 @@ class Parser(object):
         lhs = self._parseGraph()
         self._match(TokenTypes.DOUBLEARROW)
         rhs = self._parseGraph()
+
+        
         lhs_to_rhs = {}
         for vl in lhs.vertices:
             for vr in rhs.vertices:

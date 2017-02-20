@@ -1,0 +1,116 @@
+
+configuration {
+	min_vertices = 10;
+}
+
+productions{
+	ek17 -k> b15,
+	ekp12 -> ei13,
+	ek5 -> empty8,
+	empty0 -> e14,
+	ek3 -> ei9,
+	ekeyitem1 -> ek17,
+	ekeyitem1 -k> ei13,
+	ei13 -> ekp12,
+	ekp12 -k> ek16,
+	empty8 -k> e4,
+	ek3 -> e4,
+	ek3 -l> e10,
+	ek16 -k> p18,
+	keyitem2 -l> p18,
+	b15 -l> ek17,
+	ek16 -k> ekp12,
+	ei9 -b> ekeyitem1,
+	empty8 -> ek5,
+	p18 -l> keyitem2,
+	e14 -> ei13,
+	p18 -k> ek16,
+	ei13 -k> ekeyitem1,
+	ek3 -b> ei13,
+	e14 -> empty0,
+	b15 -> t11,
+	e14 -k> e10,
+	ei13 -> e14,
+	ekeyitem1 -b> ei9,
+	e4 -> ek3,
+	empty8 -> ek6,
+	e4 -k> empty8,
+	s7 -> empty8,
+	ei9 -> ek3,
+	ei13 -b> ek3,
+	e10 -> ek3,
+	e10 -k> e14,
+	t11 -l> b15,
+	ek6 -> empty8,
+	empty8 -> s7,
+	ek17 -> ekeyitem1;
+
+
+
+    Seed1 ==> s1 -> Middle2 -> Middle3  -k> b4 -l> t5,
+                    Middle2 -> Middle6 -> HasKey7,
+	      s1 <- Middle2 <- Middle3 <l- b4 <- t5,
+                    Middle2 <- Middle6 <- HasKey7;
+    Seed1 ==> s1 -> Middle2 -> Middle3  -k> b4 -l> t5,
+    	                       Middle3 -> Middle6 -> HasKey7,
+	      s1 <- Middle2 <- Middle3  <l- b4 <l- t5,
+    	                       Middle3 <- Middle6 <- HasKey7;
+    Seed1 ==> s1 -> Middle2 -> Middle3 -> Middle4 -k> b5 -l> t6,
+                    Middle2 -> Middle4 -> Keyitem7 -> Middle8 -> HasKey9,
+		    Middle8 -> Middle3,
+	      s1 <- Middle2 <- Middle3 <- Middle4 <l- b5 <- t6,
+                    Middle2 <- Middle4 <- Keyitem7 <- Middle8 <- HasKey9,
+		    Middle8 <- Middle3;
+    Middle1 ==> Keyitem1;
+    Keyitem1 ==> keyitem1;
+    Keyitem1 ==> ekeyitem1;
+    Middle1 ==> Middle1 -> Branch2,
+                Middle1 <- Branch2;
+    Branch1 ==> HasChallenge1 -> empty2,
+    	        HasChallenge1 <- empty2;
+    Branch1 ==> HasChallenge1 -> HasItem2,
+    	        HasChallenge1 <- HasItem2;
+    Branch1 ==> HasItem1 -> empty2,
+    	        HasItem1 <- empty2;
+    Branch1 ==> HasItem1 -> HasChallenge2,
+    	        HasItem1 <- HasChallenge2;
+    Branch1 ==> empty1 -> empty2,
+    	        empty1 <- empty2;
+    Middle1 -> Middle2,
+    Middle1 <- Middle2 ==> Middle1 -k> Middle2,
+    	       	       	   Middle1 -> HasKey3,
+			   Middle1 <k- Middle2,
+    	       	       	   Middle1 <- HasKey3;
+    Middle1 -> Middle2,
+    Middle1 <- Middle2 ==> Middle1 -> Middle2 -k> Middle3,
+    	       	       	   Middle1 -> Middle4 -> HasKey5 -> Middle2,
+			   Middle1 <- Middle2 <k- Middle3,
+    	       	       	   Middle1 <- Middle4 <- HasKey5 <- Middle2;
+    Middle1 -> Middle2,
+    Middle1 <- Middle2 ==> Middle1 -> Middle2 -k> Middle3,
+    	       	       	   Middle1 -> Middle4 -> HasKey5 -> Middle2,
+			   Middle4 <b- Middle3,
+			   Middle1 <- Middle2 <k- Middle3,
+    	       	       	   Middle1 <- Middle4 <- HasKey5 <- Middle2,
+			   Middle4 <b- Middle3;
+    Middle1 -> HasKey2 ==> Middle1 -> HasChallenge3 -> HasKey2;
+    Middle1 ==> empty1;
+    Middle1 ==> HasChallenge1;
+    Middle1 ==> i1;
+    HasChallenge1 ==> e1;
+    HasChallenge1 ==> p1;
+    HasChallenge1 ==> ep1;
+    HasChallenge1 ==> eip1;
+    HasChallenge1 ==> ei1;
+    HasChallenge1 ==> ip1;
+    HasItem1 ==> i1;
+    HasItem1 ==> ip1;
+    HasKey1 ==> kp1;
+    HasKey1 ==> ek1;
+    HasKey1 ==> ekp1;
+    HasKey1 ==> eikp1;
+    HasKey1 ==> ikp1;
+    HasKey1 ==> eip1;
+    HasKey1 ==> eik1;
+    
+}
