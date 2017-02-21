@@ -1,0 +1,106 @@
+
+configuration {
+	min_vertices = 10;
+}
+
+productions{
+ 
+	HasKey17 -k> b15,
+	HasKey12 -> Middle13,
+	HasKey5 -> Middle8,
+	Middle0 -> e14,
+	HasKey3 -> Middle9,
+	ekeyitem1 -> HasKey17,
+	ekeyitem1 -> Middle13,
+	Middle13 -> HasKey12,
+	HasKey12 -k> HasKey16,
+	Middle8 -k> e4,
+	HasKey3 -> e4,
+	HasKey3 -l> e10,
+	HasKey16 -k> p18,
+	keyitem2 -l> p18,
+	b15 -l> HasKey17,
+	HasKey16 -> HasKey12,
+	Middle9 -b> HasKeyeyitem1,
+	Middle8 -> HasKey5,
+	p18 -l> keyitem2,
+	e14 -> Middle13,
+	p18 -> HasKey16,
+	Middle13 -k> ekeyitem1,
+	HasKey3 -b> Middle13,
+	e14 -> Middle0,
+	b15 -> t11,
+	e14 -> e10,
+	Middle13 -> e14,
+	ekeyitem1 -b> Middle9,
+	e4 -> HasKey3,
+	Middle8 -> HasKey6,
+	e4 -> Middle8,
+	s7 -> Middle8,
+	Middle9 -> HasKey3,
+	Middle13 -b> HasKey3,
+	e10 -> HasKey3,
+	e10 -k> e14,
+	t11 -l> b15,
+	HasKey6 -> Middle8,
+	Middle8 -> s7,
+	HasKey17 -> ekeyitem1;
+
+    Seed1 ==> s1 -> Middle2 -> Middle3  -k> b4 -l> t5,
+                    Middle2 -> HasKey7,
+	      s1 <- Middle2 <- Middle3 <l- b4 <- t5,
+                    Middle2 <- HasKey7;
+   
+    Middle1 ==> Keyitem1;
+    Keyitem1 ==> keyitem1;
+    Keyitem1 ==> ekeyitem1;
+    Middle1 ==> Middle1 -> Branch2,
+                Middle1 <- Branch2;
+    Branch1 ==> Branch1 -> Branch2,
+                Branch1 <- Branch2;
+    Branch1 ==> HasChallenge1 -> empty2,
+    	        HasChallenge1 <- empty2;
+    Branch1 ==> HasChallenge1 -> HasItem2,
+    	        HasChallenge1 <- HasItem2;
+    Branch1 ==> HasItem1 -> empty2,
+    	        HasItem1 <- empty2;
+    Branch1 ==> HasItem1 -> HasChallenge2,
+    	        HasItem1 <- HasChallenge2;
+    Branch1 ==> empty1 -> empty2,
+    	        empty1 <- empty2;
+    Middle1 ==> Middle1 -> Middle2,
+                Middle2 -> Middle1;
+    Middle1 -> WILDCARD2,
+    Middle1 <- WILDCARD2 ==> Middle1 -k> WILDCARD2,
+    	       	       	   Middle1 -> HasKey3,
+			   Middle1 <- WILDCARD2,
+    	       	       	   Middle1 <- HasKey3;
+    	
+    Middle1 -> WILDCARD2,
+    Middle1 <- WILDCARD2 ==> HasKey3 -k> WILDCARD2,
+    	       	       	   Middle1 -> HasKey3,
+			   HasKey3 <- WILDCARD2,
+    	       	       	   Middle1 <- HasKey3;		   
+    Middle1 -> HasKey2,
+    Middle1 <- HasKey2==> Middle1 -> Middle3 -> HasKey2,
+    	       		  Middle1 <- Middle3 <- HasKey2;
+    Middle1 ==> empty1;
+    Middle1 ==> HasChallenge1;
+    Middle1 ==> i1;
+    HasChallenge1 ==> e1;
+    HasChallenge1 ==> p1;
+    HasChallenge1 ==> ep1;
+    HasChallenge1 ==> eip1;
+    HasChallenge1 ==> ei1;
+    HasChallenge1 ==> ip1;
+    HasItem1 ==> i1;
+    HasItem1 ==> ip1;
+    HasKey1 ==> kp1;
+    HasKey1 ==> ek1;
+    HasKey1 ==> ekp1;
+    HasKey1 ==> eikp1;
+    HasKey1 ==> ikp1;
+    HasKey1 ==> eip1;
+    HasKey1 ==> eik1;    
+    WILDCARD1 -> WILDCARD2 ==> WILDCARD1 -l> WILDCARD2;
+}
